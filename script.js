@@ -17,7 +17,7 @@ function timeDuration(seconds) {
 
 async function getSongs(folder) {
     currFolder = folder;
-    let a = await fetch(`/${folder}/`);
+    let a = await fetch(`https://github.com/chitransh-saxena26/Musify/tree/main/songs/${folder}/`);
     let response = await a.text();
     let div = document.createElement("div");
     div.innerHTML = response;
@@ -57,7 +57,7 @@ async function getSongs(folder) {
 }
 
 const playMusic = (track, pause = false) => {
-    currSong.src = `/${currFolder}/` + track;
+    currSong.src = `https://github.com/chitransh-saxena26/Musify/tree/main/songs/${currFolder}/` + track;
     if (!pause) {
         currSong.play();
         play.src = "img/pause.svg"
@@ -67,7 +67,7 @@ const playMusic = (track, pause = false) => {
 }
 
 async function displayAlbums() {
-    let a = await fetch(`/songs/`);
+    let a = await fetch(`https://github.com/chitransh-saxena26/Musify/tree/main/songs/`);
     let response = await a.text();
     let div = document.createElement("div");
     div.innerHTML = response;
