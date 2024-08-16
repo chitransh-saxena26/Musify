@@ -1,0 +1,49 @@
+{
+    "albums": [
+      {
+        "title": "King's Hits",
+        "description": "Enjoy some of the most popular songs by King",
+        "cover": "songs/King/cover.jpeg",
+        "songs": [
+            {
+                "title": "Tu Jaana Na Piya",
+                "artist": "King",
+                "path": "songs/King/Tu Jaana Na Piya.mp3"
+            },
+            {
+                "title": "KING - Legends",
+                "artist": "King",
+                "path": "songs/King/KING - Legends.mp3"
+            },
+            {
+                "title": "F_CK WHAT THEY SAY",
+                "artist": "King",
+                "path": "songs/King/F_CK WHAT THEY SAY.mp3"
+            }
+        ]
+      },
+      {
+        "title": "favourites",
+        "description": "Enjoy some of my favourite songs",
+        "cover": "songs/ncs/cover.jpeg",
+        "songs": [
+            {
+                "title": "_NSYNC - Bye Bye Bye",
+                "artist": "_NSYNC",
+                "path": "songs/ncs/_NSYNC - Bye Bye Bye.mp3"
+              },
+              {
+                "title": "Uska Hi Banana",
+                "artist": "Arijit Singh",
+                "path": "songs/ncs/Uska Hi Banana.mp3"
+              },
+              {
+                "title": "Raabta",
+                "artist": "Arijit Singh",
+                "path": "songs/ncs/Raabta.mp3"
+              }
+        ]
+      }
+    ]
+}
+
