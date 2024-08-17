@@ -25,6 +25,10 @@ async function getSongs(albumIndex = 0) {
     let songUL = document.querySelector(".song-list").getElementsByTagName("ul")[0]
     songUL.innerHTML = "";
     let album = albums[albumIndex];
+    songs = album.songs;
+
+    console.log("Selected Album Songs:", songs);
+
     album.songs.forEach((song, index) => {
         songUL.innerHTML += `<li data-index="${index}">
                                  <img class="invert" src="img/music.svg" alt="">
@@ -39,23 +43,30 @@ async function getSongs(albumIndex = 0) {
                              </li>`;
     })
 
-    document.querySelectorAll(".song-list li").forEach(e => {
-        e.addEventListener("click", element => {
-            currIndex = parseInt(e.getAttribute('data-index'));
-            playMusic(currIndex); // MODIFIED: Play the selected song
-        })
-    });
+    setTimeout(() => {
+        document.querySelectorAll(".song-list li").forEach(e => {
+            e.addEventListener("click", () => {
+                currIndex = parseInt(e.getAttribute('data-index'));
+                console.log("Clicked Song Index:", currIndex);  // Debugging statement
+                playMusic(currIndex);
+            });
+        });
+    }, 100);
     
-    return album.songs;
+    return songs;
 
 }
 
-const playMusic = async (index, pause = false) => {
-    let songs = await getSongs(index);
-    console.log(songs)
-    
+const playMusic = (index, pause = false) => {
+
     const song = songs[index];
+    console.log(song);
+
+    console.log("Playing Song:", song.title);
+    
+    currIndex = index;
     currSong.src = song.path;
+    
     if (!pause) {
         currSong.play();
         document.getElementById("play").src = "img/pause.svg";
@@ -91,7 +102,9 @@ async function displayAlbums() {
         e.addEventListener('click', async item => {
             const albumIndex = parseInt(item.currentTarget.getAttribute('data-album-index'));
             getSongs(albumIndex);
-            playMusic(albumIndex);
+            setTimeout(() => {
+                playMusic(0);  // Play the first song of the selected album
+            }, 100);
         });
     });
 
@@ -134,33 +147,21 @@ async function main() {
     })
 
     prev.addEventListener("click", () => {
-        let index = songs.indexOf(currSong.src.split("/").slice(-1)[0]);
-
-        if (((index - 1) >= 0) && (currSong.currentTime < 20)) {
-            playMusic(songs[index - 1])
+        if (currIndex > 0) {
+            playMusic(currIndex - 1);
         }
-
-        else if (currSong.currentTime > 20) {
-            currSong.currentTime = 0;
-        }
-
-    })
+    });
 
     next.addEventListener("click", () => {
-        let index = songs.indexOf(currSong.src.split("/").slice(-1)[0]);
-        if ((index + 1) < songs.length) {
-            playMusic(songs[index + 1])
+        if (currIndex < songs.length - 1) {
+            playMusic(currIndex + 1);
         }
-        else {
-            return;
-        }
-    })
-
+    });
+    
     shuffle.addEventListener("click", () => {
-        let randomSong = Math.floor(Math.random() * songs.length);
-        playMusic(songs[randomSong]);
-    })
-
+        let randomIndex = Math.floor(Math.random() * songs.length);
+        playMusic(randomIndex);
+    });
     document.querySelector('.range').getElementsByTagName('input')[0].addEventListener('change', (e) => {
         currSong.volume = parseInt(e.target.value) / 100;
     })
