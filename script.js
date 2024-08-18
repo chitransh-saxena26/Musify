@@ -27,8 +27,6 @@ async function getSongs(albumIndex = 0) {
     let album = albums[albumIndex];
     songs = album.songs;
 
-    console.log("Selected Album Songs:", songs);
-
     album.songs.forEach((song, index) => {
         songUL.innerHTML += `<li data-index="${index}">
                                  <img class="invert" src="img/music.svg" alt="">
@@ -47,7 +45,6 @@ async function getSongs(albumIndex = 0) {
         document.querySelectorAll(".song-list li").forEach(e => {
             e.addEventListener("click", () => {
                 currIndex = parseInt(e.getAttribute('data-index'));
-                console.log("Clicked Song Index:", currIndex);  // Debugging statement
                 playMusic(currIndex);
             });
         });
@@ -60,12 +57,13 @@ async function getSongs(albumIndex = 0) {
 const playMusic = (index, pause = false) => {
 
     const song = songs[index];
-    console.log(song);
-
-    console.log("Playing Song:", song.title);
     
     currIndex = index;
     currSong.src = decodeURIComponent(song.path);
+    
+    if (currSong.currentTime === currSong.duration) {
+        playMusic(currIndex + 1);
+    }
     
     if (!pause) {
         currSong.play();
@@ -103,8 +101,7 @@ async function displayAlbums() {
             const albumIndex = parseInt(item.currentTarget.getAttribute('data-album-index'));
             getSongs(albumIndex);
             setTimeout(() => {
-                currIndex = 0; 
-                console.log(currSong);
+                currIndex = 0;
                 
                 playMusic(currIndex);  
             }, 100);
@@ -130,11 +127,19 @@ async function main() {
         }
     })
 
-
     currSong.addEventListener("timeupdate", () => {
         document.querySelector(".song-time").innerHTML = `${timeDuration(currSong.currentTime)}/${timeDuration(currSong.duration)}`;
         document.querySelector(".circle").style.left = (currSong.currentTime / currSong.duration) * 100 + "%";
     })
+
+    currSong.addEventListener("ended", () => {
+        if (currIndex !== -1 && currIndex < songs.length - 1) {
+            playMusic(currIndex + 1);
+        } else{
+            playMusic(0);
+        }
+        
+    });
 
     document.querySelector(".seek").addEventListener("click", e => {
         let timelapse = (e.offsetX / e.target.getBoundingClientRect().width) * 100;
