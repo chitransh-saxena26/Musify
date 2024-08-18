@@ -103,7 +103,8 @@ async function displayAlbums() {
             const albumIndex = parseInt(item.currentTarget.getAttribute('data-album-index'));
             getSongs(albumIndex);
             setTimeout(() => {
-                playMusic(0);  // Play the first song of the selected album
+                currIndex = 0; 
+                playMusic(currIndex);  
             }, 100);
         });
     });
@@ -157,7 +158,7 @@ async function main() {
             playMusic(currIndex + 1);
         }
     });
-    
+
     shuffle.addEventListener("click", () => {
         let randomIndex = Math.floor(Math.random() * songs.length);
         playMusic(randomIndex);
