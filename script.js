@@ -104,6 +104,8 @@ async function displayAlbums() {
             getSongs(albumIndex);
             setTimeout(() => {
                 currIndex = 0; 
+                console.log(currSong);
+                
                 playMusic(currIndex);  
             }, 100);
         });
