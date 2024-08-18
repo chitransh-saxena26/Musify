@@ -65,7 +65,7 @@ const playMusic = (index, pause = false) => {
     console.log("Playing Song:", song.title);
     
     currIndex = index;
-    currSong.src = song.path;
+    currSong.src = decodeURIComponent(song.path);
     
     if (!pause) {
         currSong.play();
