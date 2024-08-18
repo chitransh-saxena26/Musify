@@ -28,8 +28,8 @@
         "cover": "songs/ncs/cover.jpeg",
         "songs": [
             {
-                "title": "_NSYNC - Bye Bye Bye",
-                "artist": "_NSYNC",
+                "title": "NSYNC - Bye Bye Bye",
+                "artist": "NSYNC",
                 "path": "songs/ncs/NSYNC-Bye-Bye-Bye.mp3"
               },
               {
